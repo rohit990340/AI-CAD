@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+:root {
+  --cyber-bg: #050505;
+  --cyber-card: rgba(10, 10, 15, 0.7);
+  --cyber-cyan: #00f3ff;
+  --cyber-magenta: #ff00ff;
+  --cyber-lime: #00ff00;
+  --cyber-border: rgba(0, 243, 255, 0.2);
+}
+
+@theme {
+  --color-cyber-bg: var(--cyber-bg);
+  --color-cyber-card: var(--cyber-card);
+  --color-cyber-cyan: var(--cyber-cyan);
+  --color-cyber-magenta: var(--cyber-magenta);
+  --color-cyber-lime: var(--cyber-lime);
+  --color-cyber-border: var(--cyber-border);
+  --animate-spin-slow: spin 3s linear infinite;
+}
+
+@layer base {
+  body {
+    @apply bg-cyber-bg text-white overflow-hidden;
+    background-image: 
+      radial-gradient(circle at 50% 50%, var(--cyber-cyan) 0%, transparent 50%),
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 100%, 100% 2px, 3px 100%;
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .cyber-card {
+    @apply bg-cyber-card backdrop-blur-xl border border-cyber-border rounded-xl relative overflow-hidden;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.05);
+  }
+
+  .cyber-card::before {
+    content: "";
+    @apply absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyber-cyan to-transparent opacity-50;
+  }
+
+  .cyber-glow-cyan {
+    text-shadow: 0 0 10px var(--cyber-cyan);
+  }
+
+  .cyber-glow-magenta {
+    text-shadow: 0 0 10px var(--cyber-magenta);
+  }
+
+  .cyber-border-glow {
+    @apply border-cyber-cyan/40;
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+  }
+
+  .scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 100;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, var(--cyber-cyan) 100%);
+    opacity: 0.05;
+    position: absolute;
+    bottom: 100%;
+    animation: scanline 10s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes scanline {
+    0% { bottom: 100%; }
+    100% { bottom: -100px; }
+  }
+
+  .cyber-grid {
+    background-image: 
+      linear-gradient(var(--cyber-cyan) 1px, transparent 1px),
+      linear-gradient(90deg, var(--cyber-cyan) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.05;
+  }
+}
